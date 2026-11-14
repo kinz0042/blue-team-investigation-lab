@@ -21,3 +21,6 @@ This environment has no Docker, QEMU or /dev/kvm available. Splunk's download pa
 
 ## Splunk milestone
 Splunk 10.6.1.1 installed and authenticated search executed. The uniquely tagged replay ingested 39 rows and produced authentication findings 2007/1008. Process p41 linked to n42 in the correct session. A dashboard definition was registered. See reports/splunk-validation.json and detections/splunk/README.md for limits.
+
+## Additional validation
+Seven negative Splunk cases pass, with results in reports/splunk-negative-tests.json. Python's 19 tests still pass. The additional OTRF RDP capture contains 5,489 events and seven Task Manager-to-LSASS access records. Its coverage report preserves original host, source timestamp, record number and process GUIDs. Run python3 inspect_public_rdp.py to reproduce it. This capture has no failed logons and does not complete validation of the repeated-failure scenario. Dashboard visual checks and the demonstration remain pending.

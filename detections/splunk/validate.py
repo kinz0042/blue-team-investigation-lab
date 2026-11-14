@@ -23,7 +23,8 @@ def request(path, fields=None, raw=None):
 def search(query):
     text = request("/services/search/jobs/export", {"search": query, "output_mode": "json"})
     records = [json.loads(line) for line in text.splitlines() if line.strip()]
-    errors = [record for record in records if record.get("messages")]
+    errors = [message for record in records for message in record.get("messages", [])
+              if message.get("type") in {"ERROR", "FATAL"}]
     if errors:
         raise RuntimeError(errors)
     return [record["result"] for record in records if "result" in record]
@@ -60,10 +61,10 @@ assert sorted(e["id"] for e in candidates) == ["p41", "p99"], candidates
 # Correlate the session and process GUID using event time, preserving process-before-network ordering.
 chain = base + """ | search sourcetype="bt:endpoint"
 | eval event_time=strptime(timestamp,"%Y-%m-%dT%H:%M:%SZ")
-| eval encoded=if(kind="process" AND match(command_line,"(?i)(^|\\s)-(enc|encodedcommand)(\\s|$)"),1,0)
+| eval encoded=if(kind="process" AND match(lower(image),"(^|[^a-z0-9_.-])(powershell|pwsh)[.]exe$") AND match(command_line,"(?i)(^|\\s)-(enc|encodedcommand)(\\s|$)"),1,0)
 | eventstats min(eval(if(encoded=1,event_time,null()))) as process_start by host session process_guid
 | eval valid_network=if(kind="network" AND event_time>=process_start,1,0)
-| eventstats values(eval(if(valid_network=1,id,null()))) as network_evidence by host session
+| eventstats values(eval(if(valid_network=1,id,null()))) as network_evidence by host session process_guid
 | eventstats values(eval(if(kind="logon",security_record,null()))) as successful_record by host session
 | where encoded=1 AND isnotnull(network_evidence) AND isnotnull(successful_record)
 | table id host session successful_record network_evidence"""
@@ -87,7 +88,24 @@ auth_query = base + """
 auth_findings = search(auth_query)
 assert sorted(int(e["record_id"]) for e in auth_findings)==[1008,2007], auth_findings
 for finding in auth_findings:
-    finding["priority"] = "high" if any(int(c["successful_record"])==int(finding["record_id"]) for c in chains) else "medium"
+    finding["priority"] = "high" if any(int(c["successful_record"])==int(finding["record_id"]) and c["host"].casefold()==finding["computer"] for c in chains) else "medium"
+
+negative_cases = [
+    ("wrong_executable", 'eval image=if(id="p41","C:/Windows/notepad.exe",image)'),
+    ("wrong_network_guid", 'eval process_guid=if(id="n42","{OTHER}",process_guid)'),
+    ("wrong_network_host", 'eval host=if(id="n42","OTHER-HOST",host)'),
+    ("wrong_network_session", 'eval session=if(id="n42","0xOTHER",session)'),
+    ("connection_before_process", 'eval timestamp=if(id="n42","2026-11-12T09:05:03Z",timestamp)'),
+    ("process_after_window", 'eval timestamp=if(id="p41","2026-11-12T09:30:00Z",timestamp)'),
+    ("missing_logon", 'where kind!="logon"'),
+]
+negative_results = []
+for name, mutation in negative_cases:
+    rows = search(chain.replace(base, base+" | "+mutation, 1))
+    if rows:
+        raise RuntimeError("False chain in "+name+": "+str(rows))
+    negative_results.append({"case": name, "expected_chains": 0, "actual_chains": len(rows), "passed": True})
+(project / "reports/splunk-negative-tests.json").write_text(json.dumps(negative_results, indent=2)+"\n")
 out = project / "reports/splunk-validation.json"
 out.write_text(json.dumps({
     "splunk_version": "10.6.1.1", "run_id": run_id,

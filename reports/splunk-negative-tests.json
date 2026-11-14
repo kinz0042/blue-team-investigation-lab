@@ -1,0 +1,44 @@
+[
+  {
+    "case": "wrong_executable",
+    "expected_chains": 0,
+    "actual_chains": 0,
+    "passed": true
+  },
+  {
+    "case": "wrong_network_guid",
+    "expected_chains": 0,
+    "actual_chains": 0,
+    "passed": true
+  },
+  {
+    "case": "wrong_network_host",
+    "expected_chains": 0,
+    "actual_chains": 0,
+    "passed": true
+  },
+  {
+    "case": "wrong_network_session",
+    "expected_chains": 0,
+    "actual_chains": 0,
+    "passed": true
+  },
+  {
+    "case": "connection_before_process",
+    "expected_chains": 0,
+    "actual_chains": 0,
+    "passed": true
+  },
+  {
+    "case": "process_after_window",
+    "expected_chains": 0,
+    "actual_chains": 0,
+    "passed": true
+  },
+  {
+    "case": "missing_logon",
+    "expected_chains": 0,
+    "actual_chains": 0,
+    "passed": true
+  }
+]

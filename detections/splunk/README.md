@@ -20,3 +20,6 @@ The original encoded-powershell.spl remains an unexecuted draft. The validated c
 ## Runtime decisions
 The official installer SHA256 was 8525ed14ddfafa1a2b6d1f9167a36fb9a4af5486b93612bf55cc4d818c5e9d71.
 Startup required OPTIMISTIC_ABOUT_FILE_LOCKING=1 on this workspace's overlay filesystem. This is a temporary lab setting. Splunk's startup license was accepted. The runtime and credentials are excluded from this repository.
+
+## Negative cases executed
+reports/splunk-negative-tests.json records seven executed cases with zero chains expected and observed: wrong executable, wrong process GUID, wrong host, wrong session, network before process, process after the fifteen-minute window, and missing logon mapping. These cases run against mutations of the indexed fixture fields. The chain now verifies the executable name and keeps network evidence grouped by host/session/process GUID. Priority assignment also checks destination hostname.

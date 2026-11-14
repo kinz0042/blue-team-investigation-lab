@@ -1,0 +1,86 @@
+{
+  "source_url": "https://raw.githubusercontent.com/OTRF/Security-Datasets/d9d40ef123d2c87d5d3df28c96bcab4f0faccc87/datasets/atomic/windows/credential_access/host/rdp_interactive_taskmanager_lsass_dump.zip",
+  "source_commit": "d9d40ef123d2c87d5d3df28c96bcab4f0faccc87",
+  "license": "data/public/LICENSE.txt",
+  "sha256": "a7761e64c891162e949afebf367084a6dddd2f3dac7b91bce870fcf9f6206fba",
+  "event_count": 5489,
+  "coverage": {
+    "failed_logons": 0,
+    "successful_logons": 18,
+    "process_events": 17,
+    "network_events": 14
+  },
+  "taskmgr_lsass_access": [
+    {
+      "Hostname": "WORKSTATION5.theshire.local",
+      "RecordNumber": 3406235,
+      "UtcTime": "2020-09-22 08:38:12.637",
+      "SourceImage": "C:\\windows\\system32\\taskmgr.exe",
+      "TargetImage": "C:\\windows\\system32\\lsass.exe",
+      "SourceProcessGUID": "{b34bc01c-b7f3-5f69-df02-000000000900}",
+      "TargetProcessGUID": "{b34bc01c-226a-5f69-0c00-000000000900}",
+      "GrantedAccess": "0x1400"
+    },
+    {
+      "Hostname": "WORKSTATION5.theshire.local",
+      "RecordNumber": 3406236,
+      "UtcTime": "2020-09-22 08:38:12.637",
+      "SourceImage": "C:\\windows\\system32\\taskmgr.exe",
+      "TargetImage": "C:\\windows\\system32\\lsass.exe",
+      "SourceProcessGUID": "{b34bc01c-b7f3-5f69-df02-000000000900}",
+      "TargetProcessGUID": "{b34bc01c-226a-5f69-0c00-000000000900}",
+      "GrantedAccess": "0x1000"
+    },
+    {
+      "Hostname": "WORKSTATION5.theshire.local",
+      "RecordNumber": 3406237,
+      "UtcTime": "2020-09-22 08:38:12.637",
+      "SourceImage": "C:\\windows\\system32\\taskmgr.exe",
+      "TargetImage": "C:\\windows\\system32\\lsass.exe",
+      "SourceProcessGUID": "{b34bc01c-b7f3-5f69-df02-000000000900}",
+      "TargetProcessGUID": "{b34bc01c-226a-5f69-0c00-000000000900}",
+      "GrantedAccess": "0x1000"
+    },
+    {
+      "Hostname": "WORKSTATION5.theshire.local",
+      "RecordNumber": 3406238,
+      "UtcTime": "2020-09-22 08:38:12.637",
+      "SourceImage": "C:\\windows\\system32\\taskmgr.exe",
+      "TargetImage": "C:\\windows\\system32\\lsass.exe",
+      "SourceProcessGUID": "{b34bc01c-b7f3-5f69-df02-000000000900}",
+      "TargetProcessGUID": "{b34bc01c-226a-5f69-0c00-000000000900}",
+      "GrantedAccess": "0x1410"
+    },
+    {
+      "Hostname": "WORKSTATION5.theshire.local",
+      "RecordNumber": 3406239,
+      "UtcTime": "2020-09-22 08:38:12.637",
+      "SourceImage": "C:\\windows\\system32\\taskmgr.exe",
+      "TargetImage": "C:\\windows\\system32\\lsass.exe",
+      "SourceProcessGUID": "{b34bc01c-b7f3-5f69-df02-000000000900}",
+      "TargetProcessGUID": "{b34bc01c-226a-5f69-0c00-000000000900}",
+      "GrantedAccess": "0x1000"
+    },
+    {
+      "Hostname": "WORKSTATION5.theshire.local",
+      "RecordNumber": 3407009,
+      "UtcTime": "2020-09-22 08:38:27.371",
+      "SourceImage": "C:\\windows\\system32\\taskmgr.exe",
+      "TargetImage": "C:\\windows\\system32\\lsass.exe",
+      "SourceProcessGUID": "{b34bc01c-b7f3-5f69-df02-000000000900}",
+      "TargetProcessGUID": "{b34bc01c-226a-5f69-0c00-000000000900}",
+      "GrantedAccess": "0x1fffff"
+    },
+    {
+      "Hostname": "WORKSTATION5.theshire.local",
+      "RecordNumber": 3407019,
+      "UtcTime": "2020-09-22 08:38:27.402",
+      "SourceImage": "C:\\windows\\system32\\taskmgr.exe",
+      "TargetImage": "C:\\windows\\system32\\lsass.exe",
+      "SourceProcessGUID": "{b34bc01c-b7f3-5f69-df02-000000000900}",
+      "TargetProcessGUID": "{b34bc01c-226a-5f69-0c00-000000000900}",
+      "GrantedAccess": "0x1fffff"
+    }
+  ],
+  "assessment": "Task Manager accessed LSASS in the source capture. Process access alone does not prove successful credential dumping. No failed logons are present, so this capture cannot exercise the repeated-failures rule."
+}
