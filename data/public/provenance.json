@@ -1,0 +1,7 @@
+{
+  "commit": "d9d40ef123d2c87d5d3df28c96bcab4f0faccc87",
+  "url": "https://raw.githubusercontent.com/OTRF/Security-Datasets/d9d40ef123d2c87d5d3df28c96bcab4f0faccc87/datasets/atomic/windows/execution/host/psh_powershell_httplistener.zip",
+  "path": "datasets/atomic/windows/execution/host/psh_powershell_httplistener.zip",
+  "sha256": "506ba862fd76e0f8d43396e705ec6eebb7a01a5a2954bd70c9f47802d32f4843",
+  "description": "Original third-party Windows capture. Separate from synthetic regression fixtures."
+}

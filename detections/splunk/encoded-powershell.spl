@@ -1,0 +1,5 @@
+index=blue_team sourcetype=bt:endpoint kind=process
+| eval executable=lower(replace(image,"^.*[\\/]",""))
+| where executable="powershell.exe" OR executable="pwsh.exe"
+| regex command_line="(?i)(^|\s)-(enc|encodedcommand)(\s|$)"
+| table _time host session id process_guid image command_line

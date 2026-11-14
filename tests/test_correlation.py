@@ -54,3 +54,13 @@ class CorrelationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             write_report(result, Path(folder), [ROOT/"data/logons.csv"])
             self.assertIn("&lt;script&gt;", Path(folder,"index.html").read_text())
+
+    def test_network_cannot_precede_process(self):
+        def change(events):
+            for event in events:
+                if event["id"] == "n42":
+                    event["timestamp"] = "2026-11-12T09:05:03Z"
+            return events
+        finding = self.run_events(change)["findings"][0]
+        self.assertEqual(finding["priority"], "medium")
+        self.assertFalse(finding["linked_network_ids"])

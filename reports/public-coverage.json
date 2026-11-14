@@ -1,0 +1,58 @@
+{
+  "capture_sha256": "506ba862fd76e0f8d43396e705ec6eebb7a01a5a2954bd70c9f47802d32f4843",
+  "event_count": 110,
+  "counts": [
+    {
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "event_id": 7,
+      "count": 8
+    },
+    {
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "event_id": 10,
+      "count": 67
+    },
+    {
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "event_id": 12,
+      "count": 13
+    },
+    {
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "event_id": 13,
+      "count": 15
+    },
+    {
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "event_id": 22,
+      "count": 1
+    },
+    {
+      "channel": "Security",
+      "event_id": 1102,
+      "count": 1
+    },
+    {
+      "channel": "Security",
+      "event_id": 5154,
+      "count": 1
+    },
+    {
+      "channel": "Security",
+      "event_id": 5156,
+      "count": 1
+    },
+    {
+      "channel": "Security",
+      "event_id": 5158,
+      "count": 3
+    }
+  ],
+  "coverage": {
+    "failed_logons_4625": 0,
+    "successful_logons_4624": 0,
+    "sysmon_process_1": 0,
+    "sysmon_network_3": 0
+  },
+  "verdict": "Insufficient telemetry to evaluate the remote-access correlation. No compromise verdict."
+}

@@ -63,9 +63,11 @@ def investigate(auth_file, telemetry_file):
                    in {"powershell.exe", "pwsh.exe"}
                    and any(token.casefold() in {"-enc", "-encodedcommand"}
                            for token in e.get("command_line", "").split())]
-        guids = {e["process_guid"] for e in encoded if e.get("process_guid")}
+        process_starts = {e["process_guid"]: stamp(e["timestamp"])
+                          for e in encoded if e.get("process_guid")}
         connections = [e for e in related if e["kind"] == "network"
-                       and e.get("process_guid") in guids]
+                       and e.get("process_guid") in process_starts
+                       and stamp(e["timestamp"]) >= process_starts[e["process_guid"]]]
         findings.append({
             "authentication": alert,
             "priority": "high" if encoded and connections else "medium",

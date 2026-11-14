@@ -10,7 +10,7 @@ python3 -m unittest discover -s tests -v
 
 Open reports/index.html locally for the investigation view. Review reports/findings.json for evidence IDs and reports/triage.md for analyst decisions.
 
-All bundled events are synthetic. The encoded command represents harmless whoami text. The analyzer reads telemetry without executing its commands.
+The primary regression events are synthetic. A separate original OTRF capture is in data/public with attribution and a coverage report. The encoded command represents harmless whoami text. The analyzer reads telemetry without executing its commands.
 
 ## Correlation
 
@@ -28,7 +28,7 @@ Inputs are normalized telemetry. Raw EVTX and Sysmon XML require conversion. Cor
 
 ## Validation and limits
 
-18 tests pass on Linux. Tests exercise duplicate suppression, conflict rejection, UTC conversion, time boundaries, host/source/domain isolation, session separation, process GUID association and HTML escaping.
+19 tests pass on Linux. Tests exercise duplicate suppression, conflict rejection, UTC conversion, time boundaries, host/source/domain isolation, session separation, process GUID association and HTML escaping.
 
 This finite offline analyzer regenerates reports per run. Use a separate output directory for each evidence set. It has no live ingestion or automatic containment. The matcher recognizes explicit -enc and -EncodedCommand tokens. Obfuscated variants, distributed spraying and missing telemetry require additional detections. Production precision and recall remain unmeasured.
 
@@ -37,3 +37,6 @@ This finite offline analyzer regenerates reports per run. Use a separate output 
 A reviewer can reproduce the analysis and trace every priority decision to event IDs. Be ready to explain why a shared IP cannot establish process/session identity, why authorized training can match a rule and how missing telemetry affects confidence.
 
 Developed with AI assistance and executed in a Linux environment. See RESEARCH.md and PLAYBOOK.md.
+
+## Current delivery status
+See STATUS.md for verified results and unfinished Splunk and capture work. Run python3 coverage.py to reproduce the public capture inventory.
