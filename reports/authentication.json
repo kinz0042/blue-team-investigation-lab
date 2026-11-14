@@ -1,0 +1,44 @@
+{
+  "unique_events": 31,
+  "duplicates_removed": 1,
+  "eligible_events_missing_source": 1,
+  "alerts": [
+    {
+      "computer": "ops-jump01",
+      "domain": "lab",
+      "user": "a.okoro",
+      "src_ip": "198.51.100.24",
+      "first_failure_utc": "2026-11-12T09:01:05Z",
+      "last_failure_utc": "2026-11-12T09:04:19Z",
+      "success_utc": "2026-11-12T09:05:02Z",
+      "failures": 6,
+      "failure_record_ids": [
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006
+      ],
+      "success_record_id": 2007
+    },
+    {
+      "computer": "ops-desk03",
+      "domain": "lab",
+      "user": "d.bello",
+      "src_ip": "192.0.2.60",
+      "first_failure_utc": "2026-11-12T09:11:05Z",
+      "last_failure_utc": "2026-11-12T09:13:45Z",
+      "success_utc": "2026-11-12T09:14:00Z",
+      "failures": 5,
+      "failure_record_ids": [
+        1003,
+        1004,
+        1005,
+        1006,
+        1007
+      ],
+      "success_record_id": 1008
+    }
+  ]
+}

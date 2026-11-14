@@ -1,0 +1,117 @@
+{
+  "authentication_quality": {
+    "unique_events": 31,
+    "duplicates_removed": 1,
+    "eligible_events_missing_source": 1
+  },
+  "findings": [
+    {
+      "authentication": {
+        "computer": "ops-jump01",
+        "domain": "lab",
+        "user": "a.okoro",
+        "src_ip": "198.51.100.24",
+        "first_failure_utc": "2026-11-12T09:01:05Z",
+        "last_failure_utc": "2026-11-12T09:04:19Z",
+        "success_utc": "2026-11-12T09:05:02Z",
+        "failures": 6,
+        "failure_record_ids": [
+          2001,
+          2002,
+          2003,
+          2004,
+          2005,
+          2006
+        ],
+        "success_record_id": 2007
+      },
+      "priority": "high",
+      "reason": "Repeated failures, successful remote logon, encoded PowerShell and a linked connection",
+      "session_mapping_available": true,
+      "encoded_process_ids": [
+        "p41"
+      ],
+      "linked_network_ids": [
+        "n42"
+      ],
+      "timeline": [
+        {
+          "id": "s2007",
+          "timestamp": "2026-11-12T09:05:02Z",
+          "host": "OPS-JUMP01",
+          "session": "0x71a",
+          "kind": "logon",
+          "security_record": 2007,
+          "user": "LAB\\a.okoro"
+        },
+        {
+          "id": "p41",
+          "timestamp": "2026-11-12T09:05:15Z",
+          "host": "OPS-JUMP01",
+          "session": "0x71a",
+          "kind": "process",
+          "image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "command_line": "powershell.exe -EncodedCommand dwBoAG8AYQBtAGkA",
+          "process_guid": "{LAB-41}",
+          "parent_image": "C:\\Windows\\explorer.exe"
+        },
+        {
+          "id": "n42",
+          "timestamp": "2026-11-12T09:05:18Z",
+          "host": "OPS-JUMP01",
+          "session": "0x71a",
+          "kind": "network",
+          "process_guid": "{LAB-41}",
+          "destination": "203.0.113.80",
+          "destination_port": 443
+        }
+      ]
+    },
+    {
+      "authentication": {
+        "computer": "ops-desk03",
+        "domain": "lab",
+        "user": "d.bello",
+        "src_ip": "192.0.2.60",
+        "first_failure_utc": "2026-11-12T09:11:05Z",
+        "last_failure_utc": "2026-11-12T09:13:45Z",
+        "success_utc": "2026-11-12T09:14:00Z",
+        "failures": 5,
+        "failure_record_ids": [
+          1003,
+          1004,
+          1005,
+          1006,
+          1007
+        ],
+        "success_record_id": 1008
+      },
+      "priority": "medium",
+      "reason": "Repeated failures followed by a successful remote logon",
+      "session_mapping_available": true,
+      "encoded_process_ids": [],
+      "linked_network_ids": [],
+      "timeline": [
+        {
+          "id": "s1008",
+          "timestamp": "2026-11-12T09:14:00Z",
+          "host": "OPS-DESK03",
+          "session": "0x91b",
+          "kind": "logon",
+          "security_record": 1008,
+          "user": "LAB\\d.bello"
+        },
+        {
+          "id": "p51",
+          "timestamp": "2026-11-12T09:14:11Z",
+          "host": "OPS-DESK03",
+          "session": "0x91b",
+          "kind": "process",
+          "image": "C:\\Windows\\System32\\notepad.exe",
+          "command_line": "notepad.exe exercise.txt",
+          "process_guid": "{LAB-51}"
+        }
+      ]
+    }
+  ]
+}

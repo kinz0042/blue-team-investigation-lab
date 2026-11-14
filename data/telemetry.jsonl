@@ -1,0 +1,7 @@
+{"id": "n99", "timestamp": "2026-11-12T09:06:05Z", "host": "OPS-JUMP01", "session": "0xOTHER", "kind": "network", "process_guid": "{LAB-99}", "destination": "192.0.2.99", "destination_port": 443}
+{"id": "p99", "timestamp": "2026-11-12T09:06:00Z", "host": "OPS-JUMP01", "session": "0xOTHER", "kind": "process", "image": "powershell.exe", "command_line": "powershell.exe -enc YQ==", "process_guid": "{LAB-99}"}
+{"id": "p51", "timestamp": "2026-11-12T09:14:11Z", "host": "OPS-DESK03", "session": "0x91b", "kind": "process", "image": "C:\\Windows\\System32\\notepad.exe", "command_line": "notepad.exe exercise.txt", "process_guid": "{LAB-51}"}
+{"id": "s1008", "timestamp": "2026-11-12T09:14:00Z", "host": "OPS-DESK03", "session": "0x91b", "kind": "logon", "security_record": 1008, "user": "LAB\\d.bello"}
+{"id": "n42", "timestamp": "2026-11-12T09:05:18Z", "host": "OPS-JUMP01", "session": "0x71a", "kind": "network", "process_guid": "{LAB-41}", "destination": "203.0.113.80", "destination_port": 443}
+{"id": "p41", "timestamp": "2026-11-12T09:05:15Z", "host": "OPS-JUMP01", "session": "0x71a", "kind": "process", "image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "command_line": "powershell.exe -EncodedCommand dwBoAG8AYQBtAGkA", "process_guid": "{LAB-41}", "parent_image": "C:\\Windows\\explorer.exe"}
+{"id": "s2007", "timestamp": "2026-11-12T09:05:02Z", "host": "OPS-JUMP01", "session": "0x71a", "kind": "logon", "security_record": 2007, "user": "LAB\\a.okoro"}
