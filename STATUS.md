@@ -24,3 +24,8 @@ Splunk 10.6.1.1 installed and authenticated search executed. The uniquely tagged
 
 ## Additional validation
 Seven negative Splunk cases pass, with results in reports/splunk-negative-tests.json. Python's 19 tests still pass. The additional OTRF RDP capture contains 5,489 events and seven Task Manager-to-LSASS access records. Its coverage report preserves original host, source timestamp, record number and process GUIDs. Run python3 inspect_public_rdp.py to reproduce it. This capture has no failed logons and does not complete validation of the repeated-failure scenario. Dashboard visual checks and the demonstration remain pending.
+
+## Public evidence investigation and demonstration
+The public RDP investigation now correlates original process 3405712, six preceding LSASS access records and dump-file record 3407010 by hostname, process GUID and original UTC time. Python validation now has 23 passing tests.
+
+The recorded command-output demonstration is demo/index.html, supported by demo/recording.json. It replays four successful Linux commands and includes exit codes. A browser check of the local dashboard returned a missing/invalid bearer-token response, so Splunk dashboard rendering and a dashboard video remain unverified. The command-output replay is a distinct deliverable.

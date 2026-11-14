@@ -28,7 +28,7 @@ Inputs are normalized telemetry. Raw EVTX and Sysmon XML require conversion. Cor
 
 ## Validation and limits
 
-19 tests pass on Linux. Tests exercise duplicate suppression, conflict rejection, UTC conversion, time boundaries, host/source/domain isolation, session separation, process GUID association and HTML escaping.
+23 tests pass on Linux. Tests exercise duplicate suppression, conflict rejection, UTC conversion, time boundaries, host/source/domain isolation, session separation, process GUID association and HTML escaping.
 
 This finite offline analyzer regenerates reports per run. Use a separate output directory for each evidence set. It has no live ingestion or automatic containment. The matcher recognizes explicit -enc and -EncodedCommand tokens. Obfuscated variants, distributed spraying and missing telemetry require additional detections. Production precision and recall remain unmeasured.
 
@@ -40,3 +40,9 @@ Developed with AI assistance and executed in a Linux environment. See RESEARCH.m
 
 ## Current delivery status
 See STATUS.md for verified results and unfinished Splunk and capture work. Run python3 coverage.py to reproduce the public capture inventory.
+
+## Original Windows evidence case
+Run python3 investigate_public_rdp.py to correlate original Task Manager process creation, LSASS access and dump artifact creation. Read reports/public-rdp-case.md. This separate public case complements the synthetic authentication sequence.
+
+## Recorded demonstration
+Download and open demo/index.html to replay four actual successful Linux commands. The complete output and exit codes are in demo/recording.json. Run python3 demo/record.py to record a fresh replay. This is a command-output demonstration. A Splunk dashboard recording is still pending.

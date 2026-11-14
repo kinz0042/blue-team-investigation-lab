@@ -1,0 +1,22 @@
+[
+  {
+    "host": "WORKSTATION5.theshire.local",
+    "user": "THESHIRE\\pgustavo",
+    "process_guid": "{b34bc01c-b7f3-5f69-df02-000000000900}",
+    "process_record": 3405712,
+    "process_utc": "2020-09-22 08:38:11.620",
+    "image": "C:\\Windows\\System32\\Taskmgr.exe",
+    "access_records": [
+      3406235,
+      3406236,
+      3406237,
+      3406238,
+      3406239,
+      3407009
+    ],
+    "file_record": 3407010,
+    "file_utc": "2020-09-22 08:38:27.371",
+    "file_path": "C:\\Users\\pgustavo\\AppData\\Local\\Temp\\lsass.DMP",
+    "assessment": "LSASS access followed by creation of an LSASS-named dump artifact by the same process. Dump contents and credential extraction were not examined."
+  }
+]

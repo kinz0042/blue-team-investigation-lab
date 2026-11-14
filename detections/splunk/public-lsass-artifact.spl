@@ -1,0 +1,8 @@
+search index=blue_team sourcetype=bt:public_sysmon validation_run="<VALIDATION_RUN>" earliest=0 | fields _raw | spath
+| eval process_guid=lower(coalesce(SourceProcessGUID,ProcessGuid)), endpoint=lower(Hostname), event_time=strptime(UtcTime,"%Y-%m-%d %H:%M:%S.%3N")
+| eventstats min(eval(if(EventID=1,event_time,null()))) as process_start values(eval(if(EventID=1,RecordNumber,null()))) as process_records by endpoint process_guid
+| eventstats min(eval(if(EventID=11 AND like(lower(TargetFilename),"%lsass.dmp"),event_time,null()))) as artifact_time by endpoint process_guid
+| eval qualifying_access=if(EventID=10 AND like(lower(TargetImage),"%lsass.exe") AND event_time>=process_start AND event_time<=artifact_time,1,0)
+| eventstats min(eval(if(qualifying_access=1,event_time,null()))) as first_access values(eval(if(qualifying_access=1,RecordNumber,null()))) as access_records by endpoint process_guid
+| where EventID=11 AND like(lower(TargetFilename),"%lsass.dmp") AND event_time>=first_access AND isnotnull(process_start)
+| table Hostname process_guid process_records access_records RecordNumber TargetFilename UtcTime

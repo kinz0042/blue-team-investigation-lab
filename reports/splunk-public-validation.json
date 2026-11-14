@@ -1,0 +1,23 @@
+{
+  "run_id": "1794686909777276288",
+  "indexed_sysmon_rows": 2018,
+  "results": [
+    {
+      "Hostname": "WORKSTATION5.theshire.local",
+      "process_guid": "{b34bc01c-b7f3-5f69-df02-000000000900}",
+      "process_records": "3405712",
+      "access_records": [
+        "3406235",
+        "3406236",
+        "3406237",
+        "3406238",
+        "3406239",
+        "3407009"
+      ],
+      "RecordNumber": "3407010",
+      "TargetFilename": "C:\\Users\\pgustavo\\AppData\\Local\\Temp\\lsass.DMP",
+      "UtcTime": "2020-09-22 08:38:27.371"
+    }
+  ],
+  "source": "data/public/rdp-capture.zip"
+}

@@ -23,3 +23,10 @@ Startup required OPTIMISTIC_ABOUT_FILE_LOCKING=1 on this workspace's overlay fil
 
 ## Negative cases executed
 reports/splunk-negative-tests.json records seven executed cases with zero chains expected and observed: wrong executable, wrong process GUID, wrong host, wrong session, network before process, process after the fifteen-minute window, and missing logon mapping. These cases run against mutations of the indexed fixture fields. The chain now verifies the executable name and keeps network evidence grouped by host/session/process GUID. Priority assignment also checks destination hostname.
+
+## Original public-capture case
+Apply public-props.conf to the lab instance and restart it before running validate_public.py with SPLUNK_PASSWORD_FILE. The source capture is over six years old. The configuration assigns current ingestion time while retaining the original Sysmon UtcTime for forensic ordering. The query explicitly parses that original time.
+
+The public validator ingests all 2,018 Sysmon process creation, process access and file creation events from the original capture. It checks the earliest LSASS-named artifact per process. Access evidence must fall between process creation and that artifact. The query preserves endpoint Hostname instead of relying on the collector host.
+
+The case is independently corroborated by investigate_public_rdp.py. It concerns an LSASS dump artifact. It does not prove credential extraction or subsequent credential use.
