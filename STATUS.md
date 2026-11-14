@@ -1,26 +1,32 @@
-# Release status
+# Private review status
 
-## Verified deliverables
+## Main investigation
 
-- Offline Python investigation for the synthetic remote-access sequence.
-- Original OTRF Windows case linking Task Manager creation, six LSASS access records and a dump-file artifact by endpoint, process GUID and UTC event time.
-- 23 passing Python tests.
-- Executed Splunk authentication and endpoint correlation searches.
-- Seven executed negative Splunk cases with no false chain.
-- Splunk corroboration of the original public case using 2,018 indexed Sysmon events.
-- Registered dashboard and native Splunk PDF export. Its two synthetic-case panels were rendered and visually inspected.
-- Actual command-output demonstration, available as offline HTML with its recorded output and exit codes.
-- Source provenance, MIT attribution, capture hashes, investigation decisions and response playbook.
+The primary case uses the original OTRF Windows capture. Python and Splunk correlate Task Manager process 3405712, six LSASS access records before artifact creation and file record 3407010 by endpoint, process GUID and original UTC time. Splunk indexed 2,018 original Sysmon events for this check.
 
-## Practical limits
+The separate repeated-failure case uses synthetic authentication/endpoint records. A complete captured repeated-failure-to-execution sequence has not been established. The main case's supported conclusion concerns an LSASS dump artifact. Credential extraction and later credential use were not examined.
 
-The repeated-failure case uses synthetic records. The separate original Windows case validates process/access/artifact linkage and has no failed logons. A single original capture containing the whole repeated-failure-to-execution sequence remains future work.
+## Verified
 
-The live Splunk Web interface could not be reached through this chat's browser. The native exported PDF/PNG were verified instead. There is no live dashboard screen recording. The supplied demonstration replays captured command output.
+- 26 passing Python tests, including forwarded duplicates, conflicting source records, wrong provider channel, incorrect host/process and temporal order.
+- Seven executed synthetic-case negative checks in Splunk.
+- Four executed original-case negative checks in Splunk.
+- Native original-case and synthetic-case dashboard PDF exports, rendered and visually checked.
+- Actual command-output replay and a 40-second edited evidence walkthrough.
+- Hosted GitHub validation on previous commits. The workflow regenerates public-capture reports and rejects changed results.
+- Original capture archives, source commit, SHA256 and MIT license attribution.
+- Investigation record, exact evidence IDs and response playbook.
 
-Splunk runs in a temporary Linux workspace with an overlay filesystem startup override. Its local API validator accepts a self-signed certificate on localhost only. Runtime credentials and installer files are outside the repository. Availability of the running instance ends with the workspace session.
+## Unresolved access restriction
 
-Python tests and SPL scenario checks passed locally. GitHub Actions run 43636367261 passed on commit 63317c3. The workflow now also regenerates the original public-capture reports and checks for changed results. Production accuracy and deployment hardening are outside this lab release.
+The chat browser rejected direct access to the running lab address with ERR_BLOCKED_BY_CLIENT. Loopback access returned a missing/invalid bearer-token response. Splunk's authenticated localhost API and native dashboard renderer were tested successfully.
 
-## Evidence walkthrough video
-demo/walkthrough.mp4 is a verified 40-second video presenting the executed results and native dashboard export. The video is an edited evidence presentation. Live Splunk Web interaction remains unavailable. Repository visibility remains private pending the owner's publishing decision.
+Live Splunk Web browser validation and a live screen recording remain blocked in this environment. The delivered MP4 presents executed evidence and a native dashboard export. It is not a live screen recording.
+
+Completing live browser work requires a Splunk instance reachable by the browser. No external hosting or account access has been configured for that purpose.
+
+## Runtime and privacy
+
+The repository remains private. Splunk runs in a temporary Linux workspace, with its official overlay-filesystem startup override. API validation accepts the localhost lab's self-signed certificate. Credentials and installer bytes remain outside the repository. Recreate the runtime when the workspace ends.
+
+Production accuracy and operational deployment hardening remain unmeasured.

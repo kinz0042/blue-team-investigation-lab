@@ -37,3 +37,21 @@ class PublicCaseTests(unittest.TestCase):
             if event.get("RecordNumber") == 3407010:
                 event["UtcTime"] = "2020-09-22 08:38:11.700"
         self.assertFalse(correlate(events))
+
+    def test_forwarded_duplicate_does_not_duplicate_evidence(self):
+        result = correlate(self.events + copy.deepcopy(self.events))
+        self.assertEqual(len(result), 1)
+        self.assertEqual(len(result[0]["access_records"]), 6)
+
+    def test_conflicting_record_is_rejected(self):
+        duplicate = copy.deepcopy(next(e for e in self.events if e.get("RecordNumber") == 3407010))
+        duplicate["TargetFilename"] = r"C:\other.dmp"
+        with self.assertRaisesRegex(ValueError, "Conflicting Sysmon record"):
+            correlate(self.events + [duplicate])
+
+    def test_wrong_provider_channel_cannot_supply_evidence(self):
+        events = copy.deepcopy(self.events)
+        for event in events:
+            if event.get("RecordNumber") == 3407010:
+                event["Channel"] = "Security"
+        self.assertFalse(correlate(events))

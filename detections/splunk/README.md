@@ -30,3 +30,9 @@ Apply public-props.conf to the lab instance and restart it before running valida
 The public validator ingests all 2,018 Sysmon process creation, process access and file creation events from the original capture. It checks the earliest LSASS-named artifact per process. Access evidence must fall between process creation and that artifact. The query preserves endpoint Hostname instead of relying on the collector host.
 
 The case is independently corroborated by investigate_public_rdp.py. It concerns an LSASS dump artifact. It does not prove credential extraction or subsequent credential use.
+
+## Original case negative validation and dashboard
+
+validate_public.py now executes four negative cases against the actual original-capture query. All must return zero artifacts: wrong artifact process GUID, wrong endpoint hostname, artifact before access, and missing process creation. Results are in reports/splunk-public-negative-tests.json.
+
+The validator registers public_lsass_evidence and uses Splunk's native PDF renderer to export reports/public-dashboard.pdf. The rendered preview is reports/public-dashboard.png. Both exports were visually checked. Dashboard browser access is separately blocked by this environment and remains unverified.

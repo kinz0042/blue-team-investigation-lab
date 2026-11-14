@@ -1,0 +1,26 @@
+[
+  {
+    "case": "wrong_artifact_process",
+    "expected": 0,
+    "actual": 0,
+    "passed": true
+  },
+  {
+    "case": "wrong_artifact_host",
+    "expected": 0,
+    "actual": 0,
+    "passed": true
+  },
+  {
+    "case": "artifact_before_access",
+    "expected": 0,
+    "actual": 0,
+    "passed": true
+  },
+  {
+    "case": "missing_process_creation",
+    "expected": 0,
+    "actual": 0,
+    "passed": true
+  }
+]

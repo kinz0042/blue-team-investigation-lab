@@ -1,0 +1,8 @@
+<dashboard version="1.1"><label>Original Windows LSASS Artifact Investigation</label><description>Original OTRF laboratory capture. Correlated evidence supports investigation of a dump artifact. Credential extraction was not examined.</description><row><panel><table><title>Process, preceding LSASS access and artifact</title><search><query>search index=blue_team sourcetype=bt:public_sysmon validation_run=&quot;1794688120070655239&quot; earliest=0 | fields _raw | spath
+| eval process_guid=lower(coalesce(SourceProcessGUID,ProcessGuid)), endpoint=lower(Hostname), event_time=strptime(UtcTime,&quot;%Y-%m-%d %H:%M:%S.%3N&quot;)
+| eventstats min(eval(if(EventID=1,event_time,null()))) as process_start values(eval(if(EventID=1,RecordNumber,null()))) as process_records by endpoint process_guid
+| eventstats min(eval(if(EventID=11 AND like(lower(TargetFilename),&quot;%lsass.dmp&quot;),event_time,null()))) as artifact_time by endpoint process_guid
+| eval qualifying_access=if(EventID=10 AND like(lower(TargetImage),&quot;%lsass.exe&quot;) AND event_time&gt;=process_start AND event_time&lt;=artifact_time,1,0)
+| eventstats min(eval(if(qualifying_access=1,event_time,null()))) as first_access values(eval(if(qualifying_access=1,RecordNumber,null()))) as access_records by endpoint process_guid
+| where EventID=11 AND like(lower(TargetFilename),&quot;%lsass.dmp&quot;) AND event_time&gt;=first_access AND isnotnull(process_start)
+| table Hostname process_guid process_records access_records RecordNumber TargetFilename UtcTime | table Hostname process_records RecordNumber TargetFilename</query><earliest>0</earliest><latest>now</latest></search></table></panel></row></dashboard>

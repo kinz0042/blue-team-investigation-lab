@@ -11,6 +11,17 @@ def event_time(event):
 
 
 def correlate(events):
+    unique = {}
+    for event in events:
+        if str(event.get("Channel", "")).casefold() != "microsoft-windows-sysmon/operational":
+            continue
+        if event.get("EventID") not in {1, 10, 11}:
+            continue
+        identity = (event["Hostname"].casefold(), event["RecordNumber"])
+        if identity in unique and unique[identity] != event:
+            raise ValueError("Conflicting Sysmon record " + str(identity))
+        unique[identity] = event
+    events = list(unique.values())
     processes = {(e["Hostname"].casefold(), e["ProcessGuid"].casefold()): e
                  for e in events if e.get("EventID") == 1 and e.get("ProcessGuid")}
     findings = []
