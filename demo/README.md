@@ -7,3 +7,6 @@ Run python3 demo/record.py from the repository root to regenerate the recording.
 The demonstration covers the synthetic investigation, original capture inventory, original artifact correlation and the Python regression suite. It is a replay of captured command output.
 
 The native Splunk dashboard export is ../reports/splunk-dashboard.pdf with a rendered preview at ../reports/splunk-dashboard.png. These show the actual exported dashboard. A live dashboard video is not supplied.
+
+## Evidence walkthrough video
+walkthrough.mp4 is a 40-second silent walkthrough. It presents executed results, original public-capture evidence and the verified native dashboard export. It is an edited presentation of evidence. It does not show live interaction with Splunk Web.

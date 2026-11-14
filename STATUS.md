@@ -21,3 +21,6 @@ The live Splunk Web interface could not be reached through this chat's browser. 
 Splunk runs in a temporary Linux workspace with an overlay filesystem startup override. Its local API validator accepts a self-signed certificate on localhost only. Runtime credentials and installer files are outside the repository. Availability of the running instance ends with the workspace session.
 
 Python tests and SPL scenario checks passed locally. GitHub Actions run 43636367261 passed on commit 63317c3. The workflow now also regenerates the original public-capture reports and checks for changed results. Production accuracy and deployment hardening are outside this lab release.
+
+## Evidence walkthrough video
+demo/walkthrough.mp4 is a verified 40-second video presenting the executed results and native dashboard export. The video is an edited evidence presentation. Live Splunk Web interaction remains unavailable. Repository visibility remains private pending the owner's publishing decision.
