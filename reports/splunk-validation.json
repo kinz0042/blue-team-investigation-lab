@@ -1,0 +1,52 @@
+{
+  "splunk_version": "10.6.1.1",
+  "run_id": "1794686230163894920",
+  "ingested_synthetic_endpoint": 7,
+  "ingested_synthetic_auth": 32,
+  "encoded_candidates": [
+    {
+      "id": "p41",
+      "host": "OPS-JUMP01",
+      "session": "0x71a",
+      "process_guid": "{LAB-41}",
+      "command_line": "powershell.exe -EncodedCommand dwBoAG8AYQBtAGkA"
+    },
+    {
+      "id": "p99",
+      "host": "OPS-JUMP01",
+      "session": "0xOTHER",
+      "process_guid": "{LAB-99}",
+      "command_line": "powershell.exe -enc YQ=="
+    }
+  ],
+  "authentication_findings": [
+    {
+      "computer": "ops-jump01",
+      "domain": "lab",
+      "user": "a.okoro",
+      "src_ip": "198.51.100.24",
+      "record_id": "2007",
+      "failures": "6",
+      "priority": "high"
+    },
+    {
+      "computer": "ops-desk03",
+      "domain": "lab",
+      "user": "d.bello",
+      "src_ip": "192.0.2.60",
+      "record_id": "1008",
+      "failures": "5",
+      "priority": "medium"
+    }
+  ],
+  "session_process_network_chain": [
+    {
+      "id": "p41",
+      "host": "OPS-JUMP01",
+      "session": "0x71a",
+      "successful_record": "2007",
+      "network_evidence": "n42"
+    }
+  ],
+  "limits": "Validated on synthetic replay only. Production accuracy and complete real-capture chain remain unmeasured."
+}

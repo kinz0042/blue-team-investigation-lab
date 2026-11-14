@@ -1,0 +1,12 @@
+search index=blue_team validation_run="<VALIDATION_RUN>" earliest=0 latest=now | fields _raw _time sourcetype | fields - host | spath
+| search sourcetype="bt:auth" logon_type=10 (event_id=4624 OR event_id=4625)
+| eval _time=strptime(timestamp,"%Y-%m-%dT%H:%M:%SZ"), record_id=tonumber(record_id), event_id=tonumber(event_id)
+| eval computer=lower(computer), domain=lower(domain), user=lower(user)
+| dedup computer record_id
+| where src_ip!="" AND src_ip!="-"
+| sort 0 +_time +record_id
+| streamstats current=f count(eval(event_id=4624)) as previous_successes by computer domain user src_ip
+| fillnull value=0 previous_successes
+| streamstats time_window=10m count(eval(event_id=4625)) as failures by computer domain user src_ip previous_successes
+| where event_id=4624 AND failures>=5
+| table computer domain user src_ip record_id failures

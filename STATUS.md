@@ -9,12 +9,15 @@
 
 ## Delivered but not runtime-validated
 - GitHub Actions workflow.
-- Draft encoded-PowerShell SPL.
+- Original draft encoded-PowerShell SPL. Executed component searches and their recorded results are now delivered.
 - Windows event export script.
 
 ## Pending
 - A complete captured dataset containing the authentication and linked process/network sequence.
-- Splunk installation, ingestion, full correlation searches and dashboard validation.
-- Dashboard screenshots and recorded end-to-end demonstration.
+- Additional SPL negative cases and dashboard visual validation.
+- Dashboard screenshots and recorded end-to-end demonstration. The dashboard is registered, but its rendering remains unverified.
 
 This environment has no Docker, QEMU or /dev/kvm available. Splunk's download page requires an account. The Windows capture is external lab evidence, while the regression scenario is synthetic. These limitations prevent declaring the full planned project finished.
+
+## Splunk milestone
+Splunk 10.6.1.1 installed and authenticated search executed. The uniquely tagged replay ingested 39 rows and produced authentication findings 2007/1008. Process p41 linked to n42 in the correct session. A dashboard definition was registered. See reports/splunk-validation.json and detections/splunk/README.md for limits.

@@ -1,0 +1,11 @@
+search index=blue_team validation_run="<VALIDATION_RUN>" earliest=0 latest=now | fields _raw _time sourcetype | fields - host | spath | search sourcetype="bt:endpoint"
+| eval event_time=strptime(timestamp,"%Y-%m-%dT%H:%M:%SZ")
+| eventstats min(eval(if(kind="logon",event_time,null()))) as logon_start by host session
+| where event_time>=logon_start AND event_time<=logon_start+900
+| eval encoded=if(kind="process" AND match(command_line,"(?i)(^|\s)-(enc|encodedcommand)(\s|$)"),1,0)
+| eventstats min(eval(if(encoded=1,event_time,null()))) as process_start by host session process_guid
+| eval valid_network=if(kind="network" AND event_time>=process_start,1,0)
+| eventstats values(eval(if(valid_network=1,id,null()))) as network_evidence by host session
+| eventstats values(eval(if(kind="logon",security_record,null()))) as successful_record by host session
+| where encoded=1 AND isnotnull(network_evidence) AND isnotnull(successful_record)
+| table id host session successful_record network_evidence
