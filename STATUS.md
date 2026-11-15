@@ -13,7 +13,7 @@ The separate repeated-failure case uses synthetic authentication/endpoint record
 - Four executed original-case negative checks in Splunk.
 - Native original-case and synthetic-case dashboard PDF exports, rendered and visually checked.
 - Actual command-output replay and a 40-second edited evidence walkthrough.
-- Hosted GitHub validation on previous commits. The workflow regenerates public-capture reports and rejects changed results.
+- Hosted GitHub validation passed for the live-dashboard fix at commit 5e3ed1d43f83e54635298fa3629344d3f80f3309. The workflow regenerates public-capture reports and rejects changed results.
 - Original capture archives, source commit, SHA256 and MIT license attribution.
 - Investigation record, exact evidence IDs and response playbook.
 

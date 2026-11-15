@@ -23,4 +23,4 @@ https://sigmahq.io/sigma-specification/
 | Remote access investigation | Normalization, correlation, triage, tests and reports | Requires explicit synthetic-data labeling |
 | Enterprise cyber range | Broad infrastructure and response | Larger infrastructure overhead |
 
-Selected remote access investigation for one reproducible case. Sources support the technical direction and sampled role requirements. They cannot guarantee employer interest. Independently labeled real lab captures and deployment into a SIEM remain future validation work.
+Selected remote access investigation for one reproducible case. Sources support the technical direction and sampled role requirements. They cannot guarantee employer interest. The project now includes a separately labeled original OTRF laboratory capture, executed Splunk searches, negative checks and authenticated browser verification. A complete captured repeated-failure-to-execution sequence and production accuracy remain unverified.

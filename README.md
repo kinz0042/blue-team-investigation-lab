@@ -56,6 +56,6 @@ Normalized endpoint JSONL requires id, timestamp, host, session and kind. Logon 
 
 The OTRF archives retain their MIT license, pinned source commit and SHA256 records. Project implementation was developed with AI assistance and executed on Linux. The supplied cases validate laboratory behavior. Production precision, recall and deployment hardening remain unmeasured.
 
-See [release status and limits](STATUS.md), [research](RESEARCH.md) and [response playbook](PLAYBOOK.md).
+See [release status and limits](STATUS.md), [private release review](REVIEW.md), [research](RESEARCH.md) and [response playbook](PLAYBOOK.md).
 
 [Watch the 40-second evidence walkthrough](demo/walkthrough.mp4). Download the MP4 to play it locally.
