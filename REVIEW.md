@@ -1,4 +1,4 @@
-# Private release review
+# Release review
 
 Review date 15 November 2026.
 
@@ -24,4 +24,4 @@ The runtime is temporary. The repository includes reproducible inputs, scripts a
 
 ## Publication state
 
-The repository remains private pending the owner's publication decision. This review is a laboratory release review. It does not claim a production security assessment or a complete audit of all repository history.
+The owner authorized publication. The repository was made public on 15 November 2026. This review is a laboratory release review. It does not claim a production security assessment or a complete audit of all repository history.
