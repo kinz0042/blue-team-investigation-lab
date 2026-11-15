@@ -4,10 +4,15 @@ import base64,json,ssl,time,urllib.request,urllib.parse,zipfile
 from pathlib import Path
 project=Path(__file__).resolve().parents[2]
 token=base64.b64encode(("admin:"+Path(os.environ["SPLUNK_PASSWORD_FILE"]).read_text().strip()).encode()).decode()
+base_url=os.environ.get("SPLUNK_BASE_URL","https://127.0.0.1:8089").rstrip("/")
+parsed_url=urllib.parse.urlsplit(base_url)
+if parsed_url.scheme!="https" or parsed_url.hostname not in {"127.0.0.1","localhost"} or parsed_url.username or parsed_url.password or parsed_url.query or parsed_url.fragment or parsed_url.path:
+    raise ValueError("SPLUNK_BASE_URL must be a localhost HTTPS origin")
+opener=urllib.request.build_opener(urllib.request.ProxyHandler({}),urllib.request.HTTPSHandler(context=ssl._create_unverified_context()))
 def request(path,body):
-    req=urllib.request.Request("https://127.0.0.1:8089"+path,data=body)
+    req=urllib.request.Request(base_url+path,data=body)
     req.add_header("Authorization","Basic "+token)
-    data=urllib.request.urlopen(req,context=ssl._create_unverified_context(),timeout=120).read()
+    data=opener.open(req,timeout=120).read()
     return data if data.startswith(b"%PDF") else data.decode()
 def search(query):
     lines=request("/services/search/jobs/export",urllib.parse.urlencode({"search":query,"output_mode":"json"}).encode())
@@ -58,7 +63,7 @@ print(json.dumps({"indexed":len(selected),"findings":rows},indent=2))
 
 # Register and natively render the public-evidence dashboard.
 import html
-dashboard = '<dashboard version="1.1"><label>Original Windows LSASS Artifact Investigation</label><description>Original OTRF laboratory capture. Correlated evidence supports investigation of a dump artifact. Credential extraction was not examined.</description><row><panel><table><title>Process, preceding LSASS access and artifact</title><search><query>' + html.escape(query+' | table Hostname process_records RecordNumber TargetFilename') + '</query><earliest>0</earliest><latest>now</latest></search></table></panel></row></dashboard>'
+dashboard = '<dashboard version="1.1"><label>Original Windows LSASS Artifact Investigation</label><description>Original OTRF laboratory capture. Correlated evidence supports investigation of a dump artifact. Credential extraction was not examined.</description><row><panel><table><title>Process, preceding LSASS access and artifact</title><search><query>' + html.escape(query.removeprefix('search ')+' | table Hostname process_records RecordNumber TargetFilename') + '</query><earliest>0</earliest><latest>now</latest></search></table></panel></row></dashboard>'
 try:
     request("/servicesNS/admin/search/data/ui/views",urllib.parse.urlencode({"name":"public_lsass_evidence","eai:data":dashboard}).encode())
 except urllib.error.HTTPError as error:

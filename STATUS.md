@@ -8,7 +8,7 @@ The separate repeated-failure case uses synthetic authentication/endpoint record
 
 ## Verified
 
-- 26 passing Python tests, including forwarded duplicates, conflicting source records, wrong provider channel, incorrect host/process and temporal order.
+- 27 passing Python tests, including forwarded duplicates, conflicting source records, wrong provider channel, incorrect host/process and temporal order.
 - Seven executed synthetic-case negative checks in Splunk.
 - Four executed original-case negative checks in Splunk.
 - Native original-case and synthetic-case dashboard PDF exports, rendered and visually checked.
@@ -17,13 +17,13 @@ The separate repeated-failure case uses synthetic authentication/endpoint record
 - Original capture archives, source commit, SHA256 and MIT license attribution.
 - Investigation record, exact evidence IDs and response playbook.
 
-## Unresolved access restriction
+## Live access verified
 
-The chat browser rejected direct access to the running lab address with ERR_BLOCKED_BY_CLIENT. Loopback access returned a missing/invalid bearer-token response. Splunk's authenticated localhost API and native dashboard renderer were tested successfully.
+On 15 November 2026, Splunk Web was reached through the cloud browser at localhost port 18000 after starting Splunk from the desktop terminal. Both authenticated dashboards returned their expected evidence rows. The original-evidence view showed process 3405712 and artifact 3407010. The synthetic view showed both authentication findings and the p41/n42 session chain.
 
-Live Splunk Web browser validation and a live screen recording remain blocked in this environment. The delivered MP4 presents executed evidence and a native dashboard export. It is not a live screen recording.
+A duplicated search prefix caused empty dashboard panels even when API searches succeeded. Both XML generators now omit that prefix. A regression test checks the generated XML. Both validators were rerun successfully after this fix.
 
-Completing live browser work requires a Splunk instance reachable by the browser. No external hosting or account access has been configured for that purpose.
+The 16.8-second demo/live-dashboard.mp4 records actual browser navigation through sampled screenshots. demo/live-recording.json describes its capture method. reports/public-dashboard-live.jpg shows the live original-evidence result. The earlier edited walkthrough remains separately identified.
 
 ## Runtime and privacy
 

@@ -1,0 +1,11 @@
+{
+  "capture_method": "Browser API screenshots sampled during live dashboard navigation",
+  "frames": 21,
+  "first_frame_ms": 32,
+  "last_frame_ms": 16055,
+  "cases": [
+    "Original Windows LSASS artifact",
+    "Synthetic authentication correlation"
+  ],
+  "live_results_verified": true
+}

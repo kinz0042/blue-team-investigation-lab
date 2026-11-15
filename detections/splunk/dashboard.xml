@@ -1,4 +1,4 @@
-<dashboard version="1.1"><label>Blue Team Evidence Validation</label><description>Synthetic replay. Authentication and endpoint correlation validation.</description><row><panel><table><title>Repeated failures followed by success</title><search><query>search index=blue_team validation_run=&quot;1794686481163578774&quot; earliest=0 latest=now | fields _raw _time sourcetype | fields - host | spath
+<dashboard version="1.1"><label>Blue Team Evidence Validation</label><description>Synthetic replay. Authentication and endpoint correlation validation.</description><row><panel><table><title>Repeated failures followed by success</title><search><query>index=blue_team validation_run=&quot;1794718920362401407&quot; earliest=0 latest=now | fields _raw _time sourcetype | fields - host | spath
 | search sourcetype=&quot;bt:auth&quot; logon_type=10 (event_id=4624 OR event_id=4625)
 | eval _time=strptime(timestamp,&quot;%Y-%m-%dT%H:%M:%SZ&quot;), record_id=tonumber(record_id), event_id=tonumber(event_id)
 | eval computer=lower(computer), domain=lower(domain), user=lower(user)
@@ -9,7 +9,7 @@
 | fillnull value=0 previous_successes
 | streamstats time_window=10m count(eval(event_id=4625)) as failures by computer domain user src_ip previous_successes
 | where event_id=4624 AND failures&gt;=5
-| table computer domain user src_ip record_id failures</query><earliest>0</earliest><latest>now</latest></search></table></panel></row><row><panel><table><title>Session and process-linked network evidence</title><search><query>search index=blue_team validation_run=&quot;1794686481163578774&quot; earliest=0 latest=now | fields _raw _time sourcetype | fields - host | spath | search sourcetype=&quot;bt:endpoint&quot;
+| table computer domain user src_ip record_id failures</query><earliest>0</earliest><latest>now</latest></search></table></panel></row><row><panel><table><title>Session and process-linked network evidence</title><search><query>index=blue_team validation_run=&quot;1794718920362401407&quot; earliest=0 latest=now | fields _raw _time sourcetype | fields - host | spath | search sourcetype=&quot;bt:endpoint&quot;
 | eval event_time=strptime(timestamp,&quot;%Y-%m-%dT%H:%M:%SZ&quot;)
 | eventstats min(eval(if(kind=&quot;logon&quot;,event_time,null()))) as logon_start by host session
 | where event_time&gt;=logon_start AND event_time&lt;=logon_start+900

@@ -12,13 +12,18 @@ from pathlib import Path
 project = Path(__file__).resolve().parents[2]
 password = Path(os.environ["SPLUNK_PASSWORD_FILE"]).read_text().strip()
 authorization = "Basic " + base64.b64encode(("admin:" + password).encode()).decode()
+base_url = os.environ.get("SPLUNK_BASE_URL", "https://127.0.0.1:8089").rstrip("/")
+parsed_url = urllib.parse.urlsplit(base_url)
+if parsed_url.scheme != "https" or parsed_url.hostname not in {"127.0.0.1", "localhost"} or parsed_url.username or parsed_url.password or parsed_url.query or parsed_url.fragment or parsed_url.path:
+    raise ValueError("SPLUNK_BASE_URL must be a localhost HTTPS origin")
 context = ssl._create_unverified_context()
+opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), urllib.request.HTTPSHandler(context=context))
 
 def request(path, fields=None, raw=None):
     body = raw if raw is not None else urllib.parse.urlencode(fields or {}).encode()
-    req = urllib.request.Request("https://127.0.0.1:8089" + path, data=body)
+    req = urllib.request.Request(base_url + path, data=body)
     req.add_header("Authorization", authorization)
-    return urllib.request.urlopen(req, context=context, timeout=60).read().decode()
+    return opener.open(req, timeout=60).read().decode()
 
 def search(query):
     text = request("/services/search/jobs/export", {"search": query, "output_mode": "json"})
@@ -117,7 +122,7 @@ out.write_text(json.dumps({
 (project / "detections/splunk/validated-authentication.spl").write_text(auth_query.replace(run_id, '<VALIDATION_RUN>')+"\n")
 
 import html
-dashboard = '<dashboard version="1.1"><label>Blue Team Evidence Validation</label><description>Synthetic replay. Authentication and endpoint correlation validation.</description><row><panel><table><title>Repeated failures followed by success</title><search><query>' + html.escape(auth_query) + '</query><earliest>0</earliest><latest>now</latest></search></table></panel></row><row><panel><table><title>Session and process-linked network evidence</title><search><query>' + html.escape(chain) + '</query><earliest>0</earliest><latest>now</latest></search></table></panel></row></dashboard>'
+dashboard = '<dashboard version="1.1"><label>Blue Team Evidence Validation</label><description>Synthetic replay. Authentication and endpoint correlation validation.</description><row><panel><table><title>Repeated failures followed by success</title><search><query>' + html.escape(auth_query.removeprefix("search ")) + '</query><earliest>0</earliest><latest>now</latest></search></table></panel></row><row><panel><table><title>Session and process-linked network evidence</title><search><query>' + html.escape(chain.removeprefix("search ")) + '</query><earliest>0</earliest><latest>now</latest></search></table></panel></row></dashboard>'
 (project / "detections/splunk/dashboard.xml").write_text(dashboard+"\n")
 try:
     request("/servicesNS/admin/search/data/ui/views", {"name":"blue_team_evidence", "eai:data":dashboard})

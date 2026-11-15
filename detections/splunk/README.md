@@ -6,14 +6,14 @@ Splunk Enterprise 10.6.1.1 ran locally on Linux. reports/splunk-validation.json 
 
 validated-authentication.spl and validated-session-chain.spl contain the executed searches. Replace <VALIDATION_RUN> with the recorded run_id. Keep run filtering to prevent repeated replay batches from mixing.
 
-The dashboard.xml was registered as blue_team_evidence in Splunk's Search app. Its searches target the recorded run. Dashboard rendering and screenshots remain unverified.
+The dashboard.xml was registered as blue_team_evidence in Splunk's Search app. Its searches target the recorded run. Both dashboard panels were verified in Splunk Web. See ../../demo/live-dashboard.mp4.
 
 ## Reproduce
 Start your local Splunk instance. Place the admin password in a private local file, then run:
 
 SPLUNK_PASSWORD_FILE=/path/to/private/password.txt python3 detections/splunk/validate.py
 
-The validator uses HTTPS localhost:8089, admin credentials and a locally self-signed certificate. Certificate verification is disabled specifically in this localhost lab client. Keep it local. It creates the blue_team index, ingests a uniquely tagged replay and asserts expected results. It also creates or updates the dashboard.
+The validator defaults to HTTPS localhost:8089, admin credentials and a locally self-signed certificate. Certificate verification is disabled specifically in this localhost lab client. Keep it local. It creates the blue_team index, ingests a uniquely tagged replay and asserts expected results. It also creates or updates the dashboard.
 
 The original encoded-powershell.spl remains an unexecuted draft. The validated chain query checks the two flags in command text and needs executable matching and additional negative cases before production use. Validation covers the bundled replay, not arbitrary production events.
 
@@ -35,4 +35,12 @@ The case is independently corroborated by investigate_public_rdp.py. It concerns
 
 validate_public.py now executes four negative cases against the actual original-capture query. All must return zero artifacts: wrong artifact process GUID, wrong endpoint hostname, artifact before access, and missing process creation. Results are in reports/splunk-public-negative-tests.json.
 
-The validator registers public_lsass_evidence and uses Splunk's native PDF renderer to export reports/public-dashboard.pdf. The rendered preview is reports/public-dashboard.png. Both exports were visually checked. Dashboard browser access is separately blocked by this environment and remains unverified.
+The validator registers public_lsass_evidence and uses Splunk's native PDF renderer to export reports/public-dashboard.pdf. The rendered preview is reports/public-dashboard.png. Both exports were visually checked. Authenticated browser access and the displayed original-evidence row were verified on 15 November 2026.
+
+## Desktop runtime used for live verification
+
+The temporary desktop runtime used Web port 18000 and management port 18089. Set httpport and mgmtHostPort in Splunk web.conf and SPLUNKD_PORT in splunk-launch.conf to matching local ports. Start Splunk in the desktop terminal so the browser can reach the same runtime. Set NO_PROXY=localhost,127.0.0.1 when starting it in an environment with proxy variables.
+
+Run each validator with SPLUNK_BASE_URL=https://127.0.0.1:18089 and SPLUNK_PASSWORD_FILE pointing to a private local password file. The clients accept only localhost HTTPS origins and bypass environment proxies for these requests. Their self-signed certificate exception is limited to the local lab. Credentials remain outside this repository.
+
+SimpleXML dashboard queries begin with index=. Splunk Web adds its search command prefix. The API searches retain their explicit search prefix. This distinction is covered by tests/test_dashboards.py.
