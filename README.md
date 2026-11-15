@@ -54,7 +54,7 @@ Authentication CSV columns are timestamp, record_id, event_id, computer, domain,
 
 Normalized endpoint JSONL requires id, timestamp, host, session and kind. Logon adds security_record and user. Process adds image, command_line and process_guid. Network adds process_guid and destination. See the bundled fixture for exact examples. Raw EVTX requires conversion.
 
-The OTRF archives retain their MIT license, pinned source commit and SHA256 records. Project implementation was developed with AI assistance and executed on Linux. The supplied cases validate laboratory behavior. Production precision, recall and deployment hardening remain unmeasured.
+The OTRF archives retain their MIT license, pinned source commit and SHA256 records. Project implementation was executed and tested on Linux. The supplied cases validate laboratory behavior. Production precision, recall and deployment hardening remain unmeasured.
 
 See [release status and limits](STATUS.md), [private release review](REVIEW.md), [research](RESEARCH.md) and [response playbook](PLAYBOOK.md).
 
