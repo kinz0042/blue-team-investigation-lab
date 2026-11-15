@@ -1,4 +1,4 @@
-# Private review status
+# Release status
 
 ## Main investigation
 
@@ -27,6 +27,6 @@ The 16.8-second demo/live-dashboard.mp4 records actual browser navigation throug
 
 ## Runtime and privacy
 
-The repository remains private. Splunk runs in a temporary Linux workspace, with its official overlay-filesystem startup override. API validation accepts the localhost lab's self-signed certificate. Credentials and installer bytes remain outside the repository. Recreate the runtime when the workspace ends.
+The repository was made public on 15 November 2026. Splunk runs in a temporary Linux workspace, with its official overlay-filesystem startup override. API validation accepts the localhost lab's self-signed certificate. Credentials and installer bytes remain outside the repository. Recreate the runtime when the workspace ends.
 
 Production accuracy and operational deployment hardening remain unmeasured.
